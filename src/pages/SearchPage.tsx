@@ -5,6 +5,7 @@ import { IMovie } from '../interfaces';
 import List from '../components/List/List';
 import MovieItem from '../components/Movie/MovieItem';
 import PaginationContainer from '../components/PaginationContainer/PaginationContainer';
+import NotFound from '../components/NotFound/NotFound';
 
 const SearchPage = () => {
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
@@ -40,7 +41,7 @@ const SearchPage = () => {
 
   return (
     <>
-      {movies && (
+      {movies && movies?.length > 0 ? (
         <>
           <List items={movies}
                 renderItem={(item: IMovie) => <MovieItem key={item.id}
@@ -52,7 +53,7 @@ const SearchPage = () => {
                                handleChange={handleChange}
           />
         </>
-      )}
+      ) : <NotFound message={search} />}
     </>
   );
 };
