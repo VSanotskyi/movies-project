@@ -41,7 +41,7 @@ const GenrePages = () => {
     setParamsPage({ page: page.toString() });
 
     getMovies(genreId, page);
-  }, [genreId, page]);
+  }, [genreId, page, setParamsPage]);
 
   return (
     <div>
