@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import api from '../services/moviesService';
+import { api } from '../services/moviesService';
 import { IMovie } from '../interfaces';
 import List from '../components/List/List';
 import MovieItem from '../components/Movie/MovieItem';
