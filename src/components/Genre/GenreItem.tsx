@@ -12,7 +12,7 @@ const GenreItem: FC<IProps> = ({ genre }) => {
   const navigate = useNavigate();
 
   const handleClick = (name: string, id: number) => {
-    navigate(`genre/${name.toLowerCase()}/${id}`);
+    navigate(`/movies-project/genre/${name.toLowerCase()}/${id}`);
   };
 
   return (

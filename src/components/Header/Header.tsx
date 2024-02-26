@@ -31,7 +31,7 @@ const Header = () => {
 
   const handleSubmit = () => {
     if (search.length < 1) return;
-    navigate(`movies/${search}`);
+    navigate(`/movies-project/movies/search/${search}`);
     setShowSearch(prev => !prev);
     setSearch('');
   };

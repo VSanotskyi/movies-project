@@ -3,8 +3,8 @@ import { RouterProvider } from 'react-router-dom';
 
 import { ThemeContext } from './hoc/ThemProvider';
 import ContextProvider from './hoc/ContextProvider';
-import { router } from './router';
 import css from './App.module.css';
+import { router } from './router';
 
 const App = () => {
   const themeContext = useContext(ThemeContext);

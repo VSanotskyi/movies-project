@@ -13,25 +13,10 @@ const MoviePages = () => {
   // @ts-ignore
   const [page, setPage] = useState(+paramsPage.get('page'));
   const [totalPage, setTotalPage] = useState(0);
-  const { pathname } = useLocation();
-
-  // const search = pathname.split('/')[2];
-  const search = null;
-  console.log(pathname.split('/')[2]);
 
   const getMovies = async (page: number) => {
     try {
       const { data } = await api.getAll(page);
-      setTotalPage(data.total_pages);
-      setMovies(data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getMoviesBySeacrh = async (search: string, page: number) => {
-    try {
-      const { data } = await api.getSearchMovies(search, page);
       setTotalPage(data.total_pages);
       setMovies(data.results);
     } catch (error) {
@@ -48,12 +33,9 @@ const MoviePages = () => {
 
     setParamsPage({ page: page.toString() });
 
-    if (search) {
-      getMoviesBySeacrh(search, page);
-    } else {
-      getMovies(page);
-    }
-  }, [page, search, setParamsPage]);
+    getMovies(page);
+
+  }, [page, setParamsPage]);
 
   return (
     <>
@@ -68,12 +50,6 @@ const MoviePages = () => {
                                page={page}
                                handleChange={handleChange}
           />
-          {/*<Stack spacing={2}>*/}
-          {/*    <Pagination count={totalPage < 500 ? totalPage : 500}*/}
-          {/*                page={page}*/}
-          {/*                onChange={handleChange}*/}
-          {/*    />*/}
-          {/*</Stack>*/}
         </>
       )}
     </>

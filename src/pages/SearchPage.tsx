@@ -1,27 +1,26 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-
 import { api } from '../services/moviesService';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { IMovie } from '../interfaces';
 import List from '../components/List/List';
 import MovieItem from '../components/Movie/MovieItem';
 import PaginationContainer from '../components/PaginationContainer/PaginationContainer';
 
-const GenrePages = () => {
-  const { pathname } = useLocation();
+const SearchPage = () => {
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
-  const [movies, setMovies] = useState<IMovie[]>([]);
+  const [movies, setMovies] = useState<IMovie[] | null>(null);
   // @ts-ignore
-  const [page, setPage] = useState(paramsPage.get('page') ? +(paramsPage.get('page')) : 1);
+  const [page, setPage] = useState(+paramsPage.get('page'));
   const [totalPage, setTotalPage] = useState(0);
+  const { pathname } = useLocation();
 
-  const genreId = pathname.split('/')[4];
+  const search = pathname.split('/')[4];
 
-  const getMovies = async (id: string, page: number) => {
+  const getMoviesBySearch = async (search: string, page: number) => {
     try {
-      const { data } = await api.getByGenre(id, page);
+      const { data } = await api.getSearchMovies(search, page);
+      setTotalPage(data.total_pages);
       setMovies(data.results);
-      setTotalPage(data['total_pages']);
     } catch (error) {
       console.error(error);
     }
@@ -32,28 +31,21 @@ const GenrePages = () => {
   };
 
   useEffect(() => {
-    setPage(1);
-  }, [genreId]);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
 
     setParamsPage({ page: page.toString() });
 
-    getMovies(genreId, page);
-  }, [genreId, page, setParamsPage]);
+    getMoviesBySearch(search, page);
+  }, [page, search, setParamsPage]);
 
   return (
-    <div>
+    <>
       {movies && (
         <>
-          <List
-            items={movies}
-            renderItem={(item: IMovie) => (
-              <MovieItem key={item.id}
-                         item={item}
-              />
-            )}
+          <List items={movies}
+                renderItem={(item: IMovie) => <MovieItem key={item.id}
+                                                         item={item}
+                />}
           />
           <PaginationContainer totalPage={totalPage}
                                page={page}
@@ -61,8 +53,8 @@ const GenrePages = () => {
           />
         </>
       )}
-    </div>
+    </>
   );
 };
 
-export default GenrePages;
+export default SearchPage;
