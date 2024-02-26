@@ -33,7 +33,7 @@ const DetailsItem = () => {
 
   useEffect(() => {
     getDetails(movieId);
-  }, []);
+  }, [movieId]);
 
   return (
     <div className={css.wrapper}>
