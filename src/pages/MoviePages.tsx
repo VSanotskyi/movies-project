@@ -53,7 +53,7 @@ const MoviePages = () => {
     } else {
       getMovies(page);
     }
-  }, [page, search]);
+  }, [page, search, setParamsPage]);
 
   return (
     <>
