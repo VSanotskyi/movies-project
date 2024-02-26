@@ -54,7 +54,7 @@ const Header = () => {
                         sx={{ flexGrow: 1 }}
             >
               <Link className={css[`${themeContext?.theme}`]}
-                    to={'/movies'}
+                    to={'movies'}
               >Movies</Link>
             </Typography>
             {showSearch && <Typography variant="h6"
