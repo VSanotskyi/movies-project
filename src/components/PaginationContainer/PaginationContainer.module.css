@@ -1,0 +1,21 @@
+.dark-theme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.dark-theme ul li button {
+    color: #ffffff;
+}
+
+.light-theme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.light-theme ul li button {
+    color: #161515;;
+}
