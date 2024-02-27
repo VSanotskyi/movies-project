@@ -11,6 +11,7 @@ import { IGenre } from '../../interfaces';
 import List from '../List/List';
 import GenreItem from '../Genre/GenreItem';
 import css from './DetailsItem.module.css';
+import defaultImage from '../../defaultImage/default-image.jpg';
 
 interface IProps {
   item: IDetails;
@@ -19,6 +20,7 @@ interface IProps {
 const DetailsItem: FC<IProps> = ({ item }) => {
 
   const urlImg = `https://image.tmdb.org/t/p/w200/${item?.poster_path}`;
+  const checkUrl = urlImg.split('/').slice(-1).toString() === 'null';
 
   return (
     <div className={css.wrapper}>
@@ -28,7 +30,7 @@ const DetailsItem: FC<IProps> = ({ item }) => {
             component="img"
             alt={item?.title}
             // height="500"
-            image={urlImg}
+            image={!checkUrl ? urlImg : defaultImage}
           />
           <div className={css.badgeWrapper}>
             {item?.genres && <List items={item?.genres}
