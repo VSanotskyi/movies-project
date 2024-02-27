@@ -35,9 +35,11 @@ const DetailsItem: FC<IProps> = ({ item }) => {
           <div className={css.badgeWrapper}>
             {item?.genres && <List items={item?.genres}
                                    renderItem={(item: IGenre) =>
-                                     <GenreItem key={item?.id}
-                                                genre={item}
-                                     />}
+                                     <div className={css.badgeItem}>
+                                       <GenreItem key={item?.id}
+                                                  genre={item}
+                                       />
+                                     </div>}
             />}
           </div>
         </div>

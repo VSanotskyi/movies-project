@@ -1,17 +1,29 @@
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .badgeContainer {
-    position: relative;
+  position: relative;
 }
 
 .badgeWrapper {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+
+}
+
+.badgeItem {
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0 2px;
+}
+
+.badgeItem:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 
