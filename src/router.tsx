@@ -8,7 +8,7 @@ import SearchPage from './pages/SearchPage';
 
 const router = createBrowserRouter([
   {
-    path: '/movies-project-without-redux', element: <Layout />, children: [
+    path: 'movies-project-without-redux', element: <Layout />, children: [
       { index: true, element: <Navigate to="movies" /> },
       { path: 'movies', element: <MoviePages /> },
       { path: 'genre/:name/:id', element: <GenrePages /> },
