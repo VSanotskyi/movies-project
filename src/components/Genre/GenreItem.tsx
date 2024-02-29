@@ -15,7 +15,7 @@ const GenreItem: FC<IProps> = ({ genre }) => {
 
   const handleClick = (name: string, id: number) => {
     resPage?.setIsReset(true);
-    navigate(`genre/${name.toLowerCase()}/${id}`);
+    navigate(`/movies-project-without-redux/genre/${name.toLowerCase()}/${id}`);
   };
 
   return (

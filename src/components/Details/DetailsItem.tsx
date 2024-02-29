@@ -12,13 +12,14 @@ import List from '../List/List';
 import GenreItem from '../Genre/GenreItem';
 import css from './DetailsItem.module.css';
 import defaultImage from '../../defaultImage/default-image.jpg';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   item: IDetails;
 }
 
 const DetailsItem: FC<IProps> = ({ item }) => {
-
+  const navigate = useNavigate();
   const urlImg = `https://image.tmdb.org/t/p/w200/${item?.poster_path}`;
   const checkUrl = urlImg.split('/').slice(-1).toString() === 'null';
 
