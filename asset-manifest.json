@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/movies-project-without-redux/static/css/main.13c0eb3a.css",
-    "main.js": "/movies-project-without-redux/static/js/main.053f56bb.js",
+    "main.js": "/movies-project-without-redux/static/js/main.59602552.js",
     "static/media/default-image.jpg": "/movies-project-without-redux/static/media/default-image.ff6e4e2b0818da157488.jpg",
     "index.html": "/movies-project-without-redux/index.html",
     "main.13c0eb3a.css.map": "/movies-project-without-redux/static/css/main.13c0eb3a.css.map",
-    "main.053f56bb.js.map": "/movies-project-without-redux/static/js/main.053f56bb.js.map"
+    "main.59602552.js.map": "/movies-project-without-redux/static/js/main.59602552.js.map"
   },
   "entrypoints": [
     "static/css/main.13c0eb3a.css",
-    "static/js/main.053f56bb.js"
+    "static/js/main.59602552.js"
   ]
 }
