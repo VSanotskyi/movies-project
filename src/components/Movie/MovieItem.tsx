@@ -21,7 +21,7 @@ const MovieItem: FC<IProps> = ({ item }) => {
   const checkUrl = urlImg.split('/').slice(-1).toString() === 'null';
 
   const handleClick = () => {
-    navigate(`/movies-project/movies/details/${id}`, { state: { item } });
+    navigate(`/movies-project-without-redux/movies/details/${id}`, { state: { item } });
   };
 
   return (

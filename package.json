@@ -1,8 +1,8 @@
 {
-  "name": "react-movies-project",
+  "name": "movies-project-without-redux",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://VSanotskyi.github.io/movies-project/",
+  "homepage": "https://VSanotskyi.github.io/movies-project-without-redux/",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
