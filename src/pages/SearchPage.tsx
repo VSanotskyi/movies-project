@@ -1,15 +1,12 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { api } from '../services';
 import { IMovie } from '../interfaces';
-import { Error, List, MovieItem, PaginationContainer } from '../components';
-import { LoadingContext, ErrorContext } from '../hoc';
+import { List, MovieItem, PaginationContainer } from '../components';
 
 const SearchPage = () => {
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
-  const loading = useContext(LoadingContext);
-  const error = useContext(ErrorContext);
   const [movies, setMovies] = useState<IMovie[] | null>(null);
   // @ts-ignore
   const [page, setPage] = useState(+paramsPage.get('page'));
@@ -19,17 +16,12 @@ const SearchPage = () => {
   const search = pathname.split('/')[pathname.split('/').length - 1];
 
   const getMoviesBySearch = async (search: string, page: number) => {
-    loading?.setIsLoading(true);
-    error?.setError(null);
     try {
       const { data } = await api.getSearchMovies(search, page);
       setTotalPage(data.total_pages);
       setMovies(data.results);
     } catch (err) {
-      const e = err as Error;
-      error?.setError(e.message);
-    } finally {
-      loading?.setIsLoading(false);
+      console.error(err);
     }
   };
 
@@ -43,7 +35,7 @@ const SearchPage = () => {
     setParamsPage({ page: page.toString() });
 
     getMoviesBySearch(search, page);
-  }, [page, search, getMoviesBySearch, setParamsPage]);
+  }, [setParamsPage, page, search]);
 
   return (
     <div>
@@ -60,8 +52,6 @@ const SearchPage = () => {
                              handleChange={handleChange}
         />
       )}
-      {error?.error && <Error title={error.error} />}
-      {error?.error === null && movies?.length === 0 && <Error title={'Not Found :('} />}
     </div>
   );
 };
