@@ -34,7 +34,7 @@ const MoviePages = () => {
     }
   };
 
-  const handleChange = (event: ChangeEvent<unknown>, value: number) => {
+  const handleChange = (e: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
