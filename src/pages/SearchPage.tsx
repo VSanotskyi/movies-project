@@ -33,7 +33,7 @@ const SearchPage = () => {
     }
   };
 
-  const handleChange = (_: ChangeEvent<unknown>, value: number) => {
+  const handleChange = (e: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
@@ -43,7 +43,7 @@ const SearchPage = () => {
     setParamsPage({ page: page.toString() });
 
     getMoviesBySearch(search, page);
-  }, [page, search, setParamsPage, getMoviesBySearch]);
+  }, [page, search, getMoviesBySearch, setParamsPage]);
 
   return (
     <div>
