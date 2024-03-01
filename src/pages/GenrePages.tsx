@@ -50,7 +50,7 @@ const GenrePages = () => {
     setParamsPage({ page: page.toString() });
 
     getMovies(genreId, page);
-  }, [genreId, page, setParamsPage]);
+  }, [genreId, page, setParamsPage, error?.error, loading?.isLoading]);
 
   return (
     <div>

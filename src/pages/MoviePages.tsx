@@ -27,7 +27,6 @@ const MoviePages = () => {
       setMovies(data.results);
     } catch (err) {
       const e = err as Error;
-      console.log('error');
       error?.setError(e.message);
     } finally {
       loading?.setIsLoading(false);
@@ -45,7 +44,7 @@ const MoviePages = () => {
 
     getMovies(page);
 
-  }, [page, setParamsPage]);
+  }, [page, setParamsPage, error?.error, loading?.isLoading]);
 
   return (
     <div>
