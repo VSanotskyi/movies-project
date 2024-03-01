@@ -1,15 +1,13 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { api } from '../services';
 import { IMovie } from '../interfaces';
 
-import { LoadingContext } from '../hoc';
 import { List, MovieItem, PaginationContainer } from '../components';
 
 const MoviePages = () => {
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
-  const loading = useContext(LoadingContext);
   const [movies, setMovies] = useState<IMovie[] | null>(null);
   // @ts-ignore
   const [page, setPage] = useState(+paramsPage.get('page'));
