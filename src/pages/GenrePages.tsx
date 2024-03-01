@@ -19,15 +19,12 @@ const GenrePages = () => {
   const genreId = pathname.split('/')[pathname.split('/').length - 1];
 
   const getMovies = async (id: string, page: number) => {
-    loading?.setIsLoading(true);
     try {
       const { data } = await api.getByGenre(id, page);
       setMovies(data.results);
       setTotalPage(data['total_pages']);
     } catch (err) {
       console.error(err);
-    } finally {
-      loading?.setIsLoading(false);
     }
   };
 
