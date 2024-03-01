@@ -1,4 +1,4 @@
-import { createContext, FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useState, createContext } from 'react';
 
 import { IGenre } from '../interfaces';
 import { api } from '../services/moviesService';
@@ -8,13 +8,13 @@ type contextType = {
   setGenres: (data: IGenre[]) => void;
 }
 
-export const Context = createContext<contextType | null>(null);
+const GenreContext = createContext<contextType | null>(null);
 
 interface IProps extends PropsWithChildren {
 
 }
 
-const ContextProvider: FC<IProps> = ({ children }) => {
+const GenreProvider: FC<IProps> = ({ children }) => {
   const [genres, setGenres] = useState<IGenre[]>([]);
 
   const getGenres = async () => {
@@ -26,20 +26,15 @@ const ContextProvider: FC<IProps> = ({ children }) => {
     }
   };
 
-  const valueContext = {
-    genres,
-    setGenres,
-  };
-
   useEffect(() => {
     getGenres();
   }, []);
 
   return (
-    <Context.Provider value={valueContext}>
+    <GenreContext.Provider value={{ genres, setGenres }}>
       {children}
-    </Context.Provider>
+    </GenreContext.Provider>
   );
 };
 
-export default ContextProvider;
+export { GenreProvider, GenreContext };

@@ -1,9 +1,10 @@
-import { FC, PropsWithChildren, useContext } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
+
+import { Button } from '@mui/material';
 
 import { IGenre } from '../../interfaces';
-import { ResetPageContext } from '../../hoc/ResetPageProvider';
+import { useResetPageContext } from '../../hooks';
 
 interface IProps extends PropsWithChildren {
   genre: IGenre;
@@ -11,11 +12,11 @@ interface IProps extends PropsWithChildren {
 
 const GenreItem: FC<IProps> = ({ genre }) => {
   const navigate = useNavigate();
-  const resPage = useContext(ResetPageContext);
+  const resetPage = useResetPageContext();
 
   const handleClick = (name: string, id: number) => {
-    resPage?.setIsReset(true);
-    navigate(`/movies-project-without-redux/genre/${name.toLowerCase()}/${id}`);
+    resetPage?.setIsReset(true);
+    navigate(`/genre/${name.toLowerCase()}/${id}`);
   };
 
   return (
@@ -25,4 +26,4 @@ const GenreItem: FC<IProps> = ({ genre }) => {
   );
 };
 
-export default GenreItem;
+export { GenreItem };

@@ -1,15 +1,15 @@
 import { FC } from 'react';
 
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Rating from '@mui/material/Rating';
-import Card from '@mui/material/Card';
+import {
+  CardMedia,
+  CardContent,
+  Typography,
+  Card,
+  Rating,
+} from '@mui/material';
 
-import { IDetails } from '../../interfaces/detailsInterface';
-import { IGenre } from '../../interfaces';
-import List from '../List/List';
-import GenreItem from '../Genre/GenreItem';
+import { IDetails, IGenre } from '../../interfaces';
+import { List, GenreItem } from '../../components';
 import css from './DetailsItem.module.css';
 import defaultImage from '../../defaultImage/default-image.jpg';
 
@@ -34,9 +34,11 @@ const DetailsItem: FC<IProps> = ({ item }) => {
           <div className={css.badgeWrapper}>
             {item?.genres && <List items={item?.genres}
                                    renderItem={(item: IGenre) =>
-                                     <div className={css.badgeItem}>
-                                       <GenreItem key={item?.id}
-                                                  genre={item}
+                                     <div className={css.badgeItem}
+                                          key={item.id}
+                                     >
+                                       <GenreItem
+                                         genre={item}
                                        />
                                      </div>}
             />}
@@ -77,4 +79,4 @@ const DetailsItem: FC<IProps> = ({ item }) => {
   );
 };
 
-export default DetailsItem;
+export { DetailsItem };

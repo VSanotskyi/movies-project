@@ -1,31 +1,37 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { api } from '../services/moviesService';
+import { api } from '../services';
 import { IMovie } from '../interfaces';
-import List from '../components/List/List';
-import MovieItem from '../components/Movie/MovieItem';
-import PaginationContainer from '../components/PaginationContainer/PaginationContainer';
-import { ResetPageContext } from '../hoc/ResetPageProvider';
+import { List, MovieItem, PaginationContainer, Error } from '../components';
+import { ResetPageContext, LoadingContext, ErrorContext } from '../hoc';
 
 const GenrePages = () => {
   const { pathname } = useLocation();
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
   const resPage = useContext(ResetPageContext);
+  const loading = useContext(LoadingContext);
+  const error = useContext(ErrorContext);
   const [movies, setMovies] = useState<IMovie[]>([]);
   // @ts-ignore
   const [page, setPage] = useState(paramsPage.get('page') ? +(paramsPage.get('page')) : 1);
   const [totalPage, setTotalPage] = useState(0);
 
-  const genreId = pathname.split('/')[4];
+  const genreId = pathname.split('/')[pathname.split('/').length - 1];
 
   const getMovies = async (id: string, page: number) => {
+    loading?.setIsLoading(true);
+    error?.setError(null);
     try {
       const { data } = await api.getByGenre(id, page);
       setMovies(data.results);
       setTotalPage(data['total_pages']);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      const e = err as Error;
+
+      error?.setError(e.message);
+    } finally {
+      loading?.setIsLoading(false);
     }
   };
 
@@ -48,24 +54,23 @@ const GenrePages = () => {
 
   return (
     <div>
-      {movies && (
-        <>
-          <List
-            items={movies}
-            renderItem={(item: IMovie) => (
-              <MovieItem key={item.id}
-                         item={item}
-              />
-            )}
-          />
-          <PaginationContainer totalPage={totalPage}
-                               page={page}
-                               handleChange={handleChange}
-          />
-        </>
+      {movies?.length > 0 && (
+        <List items={movies}
+              renderItem={(item: IMovie) => (
+                <MovieItem key={item.id}
+                           item={item}
+                />)}
+        />
       )}
+      {totalPage !== 0 && (
+        <PaginationContainer totalPage={totalPage}
+                             page={page}
+                             handleChange={handleChange}
+        />)}
+
+      {error?.error && <Error title={error.error} />}
     </div>
   );
 };
 
-export default GenrePages;
+export { GenrePages };

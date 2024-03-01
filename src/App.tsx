@@ -1,23 +1,37 @@
-import { useContext } from 'react';
-import { RouterProvider } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import { ThemeContext } from './hoc/ThemProvider';
-import ContextProvider from './hoc/ContextProvider';
-import css from './App.module.css';
-import { router } from './router';
-import ResetPageProvider from './hoc/ResetPageProvider';
+import { Layout } from './Layout';
+import {
+  MoviePages,
+  GenrePages,
+  SearchPage,
+  DetailsPages,
+  ErrorPages,
+} from './pages';
 
 const App = () => {
-  const themeContext = useContext(ThemeContext);
-
   return (
-    <div className={css[`${themeContext?.theme}`]}>
-      <ContextProvider>
-        <ResetPageProvider>
-          <RouterProvider router={router} />
-        </ResetPageProvider>
-      </ContextProvider>
-    </div>
+    <Routes>
+      <Route path="/"
+             element={<Layout />}
+      >
+        <Route index
+               element={<MoviePages />}
+        />
+        <Route path={'/genre/:name/:id'}
+               element={<GenrePages />}
+        />
+        <Route path={'/details/:id'}
+               element={<DetailsPages />}
+        />
+        <Route path={'/search/:searchName'}
+               element={<SearchPage />}
+        />
+      </Route>
+      <Route path="*"
+             element={<ErrorPages />}
+      />
+    </Routes>
   );
 };
 

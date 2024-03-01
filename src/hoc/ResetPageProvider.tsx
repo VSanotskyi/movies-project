@@ -4,26 +4,21 @@ interface IProps extends PropsWithChildren {
 
 }
 
-interface IUpdatePageContext {
+type contextType = {
   isReset: boolean;
   setIsReset: (prev: boolean) => void;
 }
 
-export const ResetPageContext = createContext<IUpdatePageContext | null>(null);
+const ResetPageContext = createContext<contextType | null>(null);
 
 const ResetPageProvider: FC<IProps> = ({ children }) => {
   const [isReset, setIsReset] = useState(false);
 
-  const contextValue = {
-    isReset,
-    setIsReset,
-  };
-
   return (
-    <ResetPageContext.Provider value={contextValue}>
+    <ResetPageContext.Provider value={{ isReset, setIsReset }}>
       {children}
     </ResetPageContext.Provider>
   );
 };
 
-export default ResetPageProvider;
+export { ResetPageProvider, ResetPageContext };

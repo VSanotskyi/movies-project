@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Rating from '@mui/material/Rating';
+
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Rating,
+} from '@mui/material';
 
 import { IMovie } from '../../interfaces';
 import css from './MovieItem.module.css';
@@ -21,7 +24,7 @@ const MovieItem: FC<IProps> = ({ item }) => {
   const checkUrl = urlImg.split('/').slice(-1).toString() === 'null';
 
   const handleClick = () => {
-    navigate(`/movies-project-without-redux/movies/details/${id}`, { state: { item } });
+    navigate(`/details/${id}`);
   };
 
   return (
@@ -58,4 +61,4 @@ const MovieItem: FC<IProps> = ({ item }) => {
   );
 };
 
-export default MovieItem;
+export { MovieItem };
