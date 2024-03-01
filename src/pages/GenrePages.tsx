@@ -4,13 +4,12 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { api } from '../services';
 import { IMovie } from '../interfaces';
 import { List, MovieItem, PaginationContainer } from '../components';
-import { ResetPageContext, LoadingContext } from '../hoc';
+import { ResetPageContext } from '../hoc';
 
 const GenrePages = () => {
   const { pathname } = useLocation();
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
   const resPage = useContext(ResetPageContext);
-  const loading = useContext(LoadingContext);
   const [movies, setMovies] = useState<IMovie[]>([]);
   // @ts-ignore
   const [page, setPage] = useState(paramsPage.get('page') ? +(paramsPage.get('page')) : 1);
@@ -43,7 +42,7 @@ const GenrePages = () => {
     setParamsPage({ page: page.toString() });
 
     getMovies(genreId, page);
-  }, [genreId, page]);
+  }, [genreId, page, setParamsPage]);
 
   return (
     <div>
