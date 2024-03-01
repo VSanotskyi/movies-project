@@ -16,15 +16,12 @@ const MoviePages = () => {
   const [totalPage, setTotalPage] = useState(0);
 
   const getMovies = async (page: number) => {
-    loading?.setIsLoading(true);
     try {
       const { data } = await api.getAll(page);
       setTotalPage(data.total_pages);
       setMovies(data.results);
     } catch (err) {
       console.error(err);
-    } finally {
-      loading?.setIsLoading(false);
     }
   };
 
