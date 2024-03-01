@@ -43,7 +43,7 @@ const SearchPage = () => {
     setParamsPage({ page: page.toString() });
 
     getMoviesBySearch(search, page);
-  }, [page, search, setParamsPage]);
+  }, [page, search, setParamsPage, getMoviesBySearch]);
 
   return (
     <div>
