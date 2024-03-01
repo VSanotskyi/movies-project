@@ -1,13 +1,18 @@
-import {Outlet} from 'react-router-dom';
-import Header from '../components/Header/Header';
+import { Outlet } from 'react-router-dom';
+
+import { Header } from '../components';
+import { useThemeContext } from '../hooks';
+import css from './theme.module.css';
 
 const Layout = () => {
-    return (
-        <>
-            <Header/>
-            <Outlet/>
-        </>
-    );
+  const theme = useThemeContext();
+  
+  return (
+    <div className={css[`${theme?.theme}`]}>
+      <Header />
+      <Outlet />
+    </div>
+  );
 };
 
-export default Layout;
+export { Layout };

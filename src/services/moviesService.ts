@@ -1,8 +1,7 @@
 import { apiService } from './apiService';
 import { typeRes } from '../types';
-import { IGenres, IMoviesRes } from '../interfaces';
-import { IDetails } from '../interfaces/detailsInterface';
-import { genres, movies, moviesByGenre, moviesBySearch, movieDetails } from '../constants/urls';
+import { IGenres, IMoviesRes, IDetails } from '../interfaces';
+import { genres, movies, moviesByGenre, moviesBySearch, movieDetails } from '../constants';
 
 const getAll = (page: number): typeRes<IMoviesRes> => {
   return apiService.get(movies + `?page=${page}`);

@@ -1,0 +1,14 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  padding: 10px 0;
+
+  color: inherit;
+}
+
+.text {
+  font-size: large;
+}

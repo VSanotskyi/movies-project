@@ -7,11 +7,11 @@ const moviesBySearch = 'search/movie?query=';
 const movieDetails = '/movie';
 
 export {
-    baseURL,
-    API_KEY,
-    movies,
-    genres,
-    moviesByGenre,
-    moviesBySearch,
-    movieDetails,
+  baseURL,
+  API_KEY,
+  movies,
+  genres,
+  moviesByGenre,
+  moviesBySearch,
+  movieDetails,
 };

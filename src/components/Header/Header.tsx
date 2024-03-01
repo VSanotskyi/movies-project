@@ -1,29 +1,29 @@
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Button,
+  Input,
+  InputAdornment,
+} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
-import { Input, InputAdornment } from '@mui/material';
 
-import { Context } from '../../hoc/ContextProvider';
-import { ThemeContext } from '../../hoc/ThemProvider';
 import { IGenre } from '../../interfaces';
-import List from '../List/List';
-import GenreItem from '../Genre/GenreItem';
-
+import { useThemeContext, useGenreContext } from '../../hooks';
+import { List, GenreItem } from '../../components';
 import css from './Header.module.css';
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [search, setSearch] = useState<string>('');
   const navigate = useNavigate();
-  const context = useContext(Context);
-  const themeContext = useContext(ThemeContext);
+  const genre = useGenreContext();
+  const theme = useThemeContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -31,13 +31,13 @@ const Header = () => {
 
   const handleSubmit = () => {
     if (search.length < 1) return;
-    navigate(`/movies-project-without-redux/movies/search/${search}`);
+    navigate(`/search/${search}`);
     setShowSearch(prev => !prev);
     setSearch('');
   };
 
   const handleChangeTheme = () => {
-    themeContext?.toggleTheme();
+    theme?.toggleTheme();
   };
 
   const toggleSearch = () => {
@@ -45,55 +45,56 @@ const Header = () => {
   };
 
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1 }}
-            >
-              <Link className={css[`${themeContext?.theme}`]}
-                    to={'movies'}
-              >Movies</Link>
-            </Typography>
-            {showSearch && <Typography variant="h6"
-                                       component="div"
-                                       sx={{ flexGrow: 1 }}
-            >
-              <Input className={css[`${themeContext?.theme}`]}
-                     onChange={handleChange}
-                     value={search}
-                     id="input-with-icon-adornment"
-              />
-              <Button onClick={handleSubmit}>
-                <InputAdornment position="start">
-                  <SearchIcon className={css[`${themeContext?.theme}`]} />
-                </InputAdornment>
-              </Button>
-            </Typography>}
-            {!showSearch && <Button onClick={toggleSearch}>
-              <SearchIcon className={css[`${themeContext?.theme}`]} />
-            </Button>}
-            <Button onClick={handleChangeTheme}>
-                            <span className={css[`${themeContext?.theme}`]}>
-                                {themeContext?.theme}
-                            </span>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6"
+                      component="div"
+                      sx={{ flexGrow: 1 }}
+          >
+            <Link className={css[`${theme?.theme}`]}
+                  to={'/'}
+            >Movies</Link>
+          </Typography>
+          {showSearch && <Typography variant="h6"
+                                     component="div"
+                                     sx={{ flexGrow: 1 }}
+          >
+            <Input
+              onChange={handleChange}
+              value={search}
+              id="input-with-icon-adornment"
+              autoFocus={true}
+            />
+            <Button onClick={handleSubmit}>
+              <InputAdornment position="start">
+                <SearchIcon className={css[`${theme?.theme}`]} />
+              </InputAdornment>
             </Button>
-            <AccountCircleIcon />
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <div>
-        {context?.genres &&
-          <List items={context?.genres}
+          </Typography>}
+          {!showSearch && <Button onClick={toggleSearch}>
+            <SearchIcon className={css[`${theme?.theme}`]} />
+          </Button>}
+          <Button onClick={handleChangeTheme}>
+                            <span className={css[`${theme?.theme}`]}>
+                                {theme?.theme}
+                            </span>
+          </Button>
+          <AccountCircleIcon />
+        </Toolbar>
+      </AppBar>
+
+      {genre?.genres &&
+        <Box>
+          <List items={genre?.genres}
                 renderItem={((item: IGenre) => <GenreItem key={item.id}
                                                           genre={item}
                 />)}
-          />}
-      </div>
-    </div>
+          />
+        </Box>
+      }
+    </Box>
   );
 };
 
-export default Header;
+export { Header };
