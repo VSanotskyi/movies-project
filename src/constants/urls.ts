@@ -6,6 +6,8 @@ const moviesByGenre = `${movies}?with_genres=`;
 const moviesBySearch = 'search/movie?query=';
 const movieDetails = '/movie';
 
+const defaultUrlImage = 'https://image.tmdb.org/t/p/w200/';
+
 export {
   baseURL,
   API_KEY,
@@ -14,4 +16,5 @@ export {
   moviesByGenre,
   moviesBySearch,
   movieDetails,
+  defaultUrlImage,
 };

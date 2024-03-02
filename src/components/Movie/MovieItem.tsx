@@ -12,6 +12,7 @@ import {
 import { IMovie } from '../../interfaces';
 import css from './MovieItem.module.css';
 import defaultImage from '../../defaultImage/default-image.jpg';
+import { defaultUrlImage } from '../../constants';
 
 interface IProps {
   item: IMovie;
@@ -19,8 +20,11 @@ interface IProps {
 
 const MovieItem: FC<IProps> = ({ item }) => {
   const navigate = useNavigate();
+
   const { title, poster_path, vote_average, id } = item;
-  const urlImg = `https://image.tmdb.org/t/p/w200/${poster_path}`;
+
+  const urlImg = defaultUrlImage + poster_path;
+  
   const checkUrl = urlImg.split('/').slice(-1).toString() === 'null';
 
   const handleClick = () => {

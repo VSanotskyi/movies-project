@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@mui/material';
@@ -6,12 +6,13 @@ import { Button } from '@mui/material';
 import { IGenre } from '../../interfaces';
 import { useResetPageContext } from '../../hooks';
 
-interface IProps extends PropsWithChildren {
+interface IProps {
   genre: IGenre;
 }
 
 const GenreItem: FC<IProps> = ({ genre }) => {
   const navigate = useNavigate();
+
   const resetPage = useResetPageContext();
 
   const handleClick = (name: string, id: number) => {

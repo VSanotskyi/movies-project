@@ -1,11 +1,11 @@
-import React, { ChangeEvent, FC, PropsWithChildren } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import { Box, Stack, Pagination, PaginationItem } from '@mui/material';
 
 import { useThemeContext } from '../../hooks';
 import css from './PaginationContainer.module.css';
 
-interface IProps extends PropsWithChildren {
+interface IProps {
   totalPage: number;
   page: number;
   handleChange: (event: ChangeEvent<unknown>, value: number) => void;

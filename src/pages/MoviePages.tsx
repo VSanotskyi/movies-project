@@ -3,27 +3,32 @@ import { useSearchParams } from 'react-router-dom';
 
 import { api } from '../services';
 import { IMovie } from '../interfaces';
-
-import { List, MovieItem, PaginationContainer } from '../components';
+import { Error, List, MovieItem, PaginationContainer, Loading } from '../components';
 
 const MoviePages = () => {
   const [paramsPage, setParamsPage] = useSearchParams({ page: '1' });
   const [movies, setMovies] = useState<IMovie[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   // @ts-ignore
-  const [page, setPage] = useState(+paramsPage.get('page'));
+  const [page, setPage] = useState(isNaN(+paramsPage.get('page')) ? 1 : +paramsPage.get('page'));
   const [totalPage, setTotalPage] = useState(0);
 
   const getMovies = async (page: number) => {
+    setIsLoading(true);
     try {
       const { data } = await api.getAll(page);
       setTotalPage(data.total_pages);
       setMovies(data.results);
     } catch (err) {
-      console.error(err);
+      const e = err as Error;
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleChange = (e: ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
@@ -33,12 +38,12 @@ const MoviePages = () => {
     setParamsPage({ page: page.toString() });
 
     getMovies(page);
-
-  }, [page, setParamsPage]);
+  }, [page, setParamsPage, error]);
 
   return (
     <div>
-      {movies && movies.length > 0 && (
+      {isLoading && <Loading />}
+      {movies && movies.length > 0 && !error && (
         <List items={movies}
               renderItem={(item: IMovie) => <MovieItem key={item.id}
                                                        item={item}
@@ -51,6 +56,7 @@ const MoviePages = () => {
                              handleChange={handleChange}
         />
       )}
+      {error && <Error message={error} />}
     </div>
   );
 };
