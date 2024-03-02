@@ -10,15 +10,16 @@ import {
 
 import { IDetails, IGenre } from '../../interfaces';
 import { List, GenreItem } from '../../components';
-import css from './DetailsItem.module.css';
+import { defaultUrlImage } from '../../constants';
 import defaultImage from '../../defaultImage/default-image.jpg';
+import css from './DetailsItem.module.css';
 
 interface IProps {
   item: IDetails;
 }
 
 const DetailsItem: FC<IProps> = ({ item }) => {
-  const urlImg = `https://image.tmdb.org/t/p/w200/${item?.poster_path}`;
+  const urlImg = defaultUrlImage + item?.poster_path;
   const checkUrl = urlImg.split('/').slice(-1).toString() === 'null';
 
   return (

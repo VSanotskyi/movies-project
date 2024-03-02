@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import {
@@ -14,7 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { IGenre } from '../../interfaces';
-import { useThemeContext, useGenreContext } from '../../hooks';
+import { useThemeContext, useGenreContext, useResetPageContext } from '../../hooks';
 import { List, GenreItem } from '../../components';
 import css from './Header.module.css';
 
@@ -22,8 +22,10 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [search, setSearch] = useState<string>('');
   const navigate = useNavigate();
+
   const genre = useGenreContext();
   const theme = useThemeContext();
+  const resPage = useResetPageContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -31,6 +33,7 @@ const Header = () => {
 
   const handleSubmit = () => {
     if (search.length < 1) return;
+    resPage?.setIsReset(true);
     navigate(`/search/${search}`);
     setShowSearch(prev => !prev);
     setSearch('');

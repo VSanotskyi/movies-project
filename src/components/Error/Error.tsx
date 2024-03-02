@@ -1,19 +1,22 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Typography, Button } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 
+import { useResetPageContext } from '../../hooks';
 import css from './Error.module.css';
 
-interface IProps extends PropsWithChildren {
-  title: string;
+interface IProps {
+  message: string;
 }
 
-const Error: FC<IProps> = ({ title }) => {
+const Error: FC<IProps> = ({ message }) => {
   const navigate = useNavigate();
+  const resPage = useResetPageContext();
 
   const handleClick = () => {
+    resPage?.setIsReset(true);
     navigate('/');
   };
 
@@ -23,7 +26,7 @@ const Error: FC<IProps> = ({ title }) => {
                   gutterBottom
       >
 
-        {title}
+        {message}
       </Typography>
       <Button variant="contained"
               endIcon={<HomeIcon />}

@@ -3,8 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import {
   ThemeProvider,
-  LoadingProvider,
-  ErrorProvider,
   ResetPageProvider,
   GenreProvider,
 } from './hoc';
@@ -16,16 +14,12 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <ThemeProvider>
-    <ErrorProvider>
-      <LoadingProvider>
-        <GenreProvider>
-          <ResetPageProvider>
-            <BrowserRouter basename={'movies-project-without-redux'}>
-              <App />
-            </BrowserRouter>
-          </ResetPageProvider>
-        </GenreProvider>
-      </LoadingProvider>
-    </ErrorProvider>
+    <GenreProvider>
+      <ResetPageProvider>
+        <BrowserRouter basename={'movies-project-without-redux'}>
+          <App />
+        </BrowserRouter>
+      </ResetPageProvider>
+    </GenreProvider>
   </ThemeProvider>,
 );
